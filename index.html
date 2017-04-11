@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Узнать ID</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://vk.com/js/api/openapi.js?144" type="text/javascript"></script>
+
+</head>
+
+
+<body>
+
+    <script type="text/javascript">
+        "use strict";
+
+        function get_id_by_screen_name(screen_name_input) {
+            VK.Api.call('utils.resolveScreenName', {screen_name: screen_name_input}, function (res) {
+                var ans = document.createElement("p");
+                ans.innerHTML = res.response.object_id;
+                $("#vk_id_container").append(ans);
+            });
+        }
+
+        $(document).ready(function () {
+            VK.init({apiId: 5978367});
+
+            $("#vk_log").click(function () {
+                VK.Auth.login();
+            });
+
+            $("#start_search_id").click(function () {
+                var screen_name = $("#screen_name_input").val();
+                get_id_by_screen_name(screen_name);
+            });
+        });
+    </script>
+
+    <div id="vk_id_container">
+        <input type="button" id="vk_log" value="Вконтакте">
+        <input type="text" id="screen_name_input">
+        <input type="button" id="start_search_id" value="Найти">
+        <p>ID этого пользователя: </p>
+    </div>
+
+</body>
+
+
+</html>
